@@ -1,13 +1,13 @@
 package ch.kerbtier.achaia.schema.parser;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 import ch.kerbtier.achaia.Types;
 import ch.kerbtier.achaia.schema.ListEntity;
 import ch.kerbtier.achaia.schema.InvalidFieldException;
 import ch.kerbtier.achaia.schema.MapEntity;
+import ch.kerbtier.achaia.schema.UndefinedFieldException;
 import ch.kerbtier.achaia.schema.implementation.ImpBinaryEntity;
 import ch.kerbtier.achaia.schema.implementation.ImpDateEntity;
 import ch.kerbtier.achaia.schema.implementation.ImpEntity;
@@ -29,7 +29,6 @@ import ch.kerbtier.achaia.schema.parser.AchaiaParser.UserContext;
 
 import com.google.common.base.Joiner;
 
-
 public class ImpVisitor extends AchaiaBaseVisitor<ImpEntity> {
 
   private Stack<ImpEntity> parents = new Stack<>();
@@ -49,7 +48,6 @@ public class ImpVisitor extends AchaiaBaseVisitor<ImpEntity> {
   @Override
   public ImpEntity visitRoot(RootContext ctx) {
     populateEntity(ctx.entity(), root);
-
     return root;
   }
 
@@ -77,14 +75,18 @@ public class ImpVisitor extends AchaiaBaseVisitor<ImpEntity> {
   public ImpEntity visitList(ListContext ctx) {
     ImpListEntity list = null;
 
-    if (parents.peek().is(Types.MAP)) {
-      try {
+    try {
+      if (parents.peek().is(Types.MAP)) {
         list = (ImpListEntity) ((MapEntity) parents.peek()).getList(names.peek());
-      } catch (InvalidFieldException e) {
-        list = new ImpListEntity(parents.peek(), getName());
+      } else {
+        throw new AssertionError();
       }
-    } else {
-      throw new AssertionError();
+    } catch (UndefinedFieldException e) {
+      // will be populated later
+    }
+
+    if (list == null) {
+      list = new ImpListEntity(parents.peek(), getName());
     }
 
     names.push("_");
@@ -110,19 +112,17 @@ public class ImpVisitor extends AchaiaBaseVisitor<ImpEntity> {
   @Override
   public ImpEntity visitMap(MapContext ctx) {
     ImpMapEntity map = null;
-    if (parents.peek().is(Types.MAP)) {
-      try {
+
+    try {
+      if (parents.peek().is(Types.MAP)) {
         map = (ImpMapEntity) ((MapEntity) parents.peek()).getObject(names.peek());
-      } catch (InvalidFieldException e) {
-        // object with same name does not exist
-      }
-    } else if (parents.peek().is(Types.LIST)) {
-      try {
+      } else if (parents.peek().is(Types.LIST)) {
         map = (ImpMapEntity) ((ListEntity) parents.peek()).getObject();
-      } catch (InvalidFieldException e) {
-        // object with same name does not exist
       }
+    } catch (UndefinedFieldException e) {
+      // will be populated later
     }
+
     if (map == null) {
       map = new ImpMapEntity(parents.peek(), getName());
     }

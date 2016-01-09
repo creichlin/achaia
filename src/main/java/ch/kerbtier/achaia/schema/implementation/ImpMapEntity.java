@@ -52,7 +52,7 @@ public class ImpMapEntity extends ImpEntity implements MapEntity {
     
     for(String part: name.split("\\.")) {
       if(part.equals("_")) {
-        // current = ((EntityList)current).get();
+        current = ((ListEntity)current).get();
       } else {
         current = ((MapEntity)current).get(part);
       }

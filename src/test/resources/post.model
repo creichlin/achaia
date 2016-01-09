@@ -1,0 +1,19 @@
+post: {
+  image: blob
+  title: string
+  slug: slug
+  date: date
+  content: string
+  comments: [{
+    name: string
+    slug: slug
+    email: string
+    content: string
+  }]
+  hits: [date]
+  meta: {
+    foo: string
+    bar: string
+  }
+  count: integer
+}
