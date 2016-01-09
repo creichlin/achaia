@@ -1,0 +1,42 @@
+
+plugins {
+  id 'java'
+  id 'groovy'
+  id 'eclipse'
+  id 'maven'
+}
+
+apply from: 'kerbtier-defaults.gradle'
+
+group = 'ch.kerbtier.achaia'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+
+dependencies {
+  compile 'com.google.guava:guava:18.0'
+  compile 'org.antlr:antlr4-runtime:4.3'
+  compile 'commons-io:commons-io:2.4'
+  compile 'ch.kerbtier.struwwel:struwwel:0.1.+'
+  compile 'ch.kerbtier.pogo-tree:pogo-tree:0.1.+'
+  
+  testCompile 'com.h2database:h2:1.4.188'
+  testCompile 'com.mchange:c3p0:0.9.5.1'
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.codehaus.groovy:groovy-all:2.4.5'
+}
+
+test {
+  exclude '**/util/*'
+  
+  testLogging {
+    exceptionFormat = 'full'
+    stackTraceFilters 'groovy'
+  }
+}
