@@ -10,7 +10,7 @@ plugins {
 apply from: 'kerbtier-defaults.gradle'
 
 dependencies {
-  compile 'org.antlr:antlr4-runtime:4.3'
+  compile 'org.antlr:antlr4-runtime:4.5'
   compile 'ch.kerbtier.struwwel:struwwel:0.1.+'
   compile 'ch.kerbtier.pogo-tree:pogo-tree:0.1.+'
   
