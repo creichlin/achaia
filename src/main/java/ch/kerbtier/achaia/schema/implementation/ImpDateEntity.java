@@ -1,19 +1,19 @@
 package ch.kerbtier.achaia.schema.implementation;
 
 
-import ch.kerbtier.achaia.Types;
+import ch.kerbtier.achaia.Type;
 import ch.kerbtier.achaia.schema.DateEntity;
 import ch.kerbtier.achaia.schema.Entity;
 
 public class ImpDateEntity extends ImpEntity implements DateEntity {
 
-  public ImpDateEntity(Entity parent, String name) {
-    super(parent, name);
+  public ImpDateEntity(Entity parent, String path) {
+    super(parent, path);
   }
 
   @Override
-  public Types getType() {
-    return Types.DATE;
+  public Type getType() {
+    return Type.DATE;
   }
 
 }

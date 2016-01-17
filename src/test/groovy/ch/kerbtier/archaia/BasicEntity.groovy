@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.kerbtier.achaia.Parse;
-import ch.kerbtier.achaia.Types;
+import ch.kerbtier.achaia.Type;
 import ch.kerbtier.achaia.schema.Entity;
 import ch.kerbtier.achaia.schema.IntegerEntity;
 import ch.kerbtier.achaia.schema.MapEntity;
@@ -58,7 +58,7 @@ public class BasicEntity {
   @Test()
   public void checkExistingMapTypeWithIsForArchaiaType() {
     Entity entity = root["post"]
-    assertTrue(entity.is(Types.MAP))
+    assertTrue(entity.is(Type.MAP))
   }
   
   @Test()
@@ -67,28 +67,33 @@ public class BasicEntity {
   }
   
   @Test()
+  public void checkCommentPath() {
+    assert "post.comments" == root["post"]["comments"].path
+  }
+  
+  @Test()
   public void checkCommentName() {
-    assertEquals("post.comments", root["post"]["comments"].name)
+    assert "comments" == root["post"]["comments"].name
   }
   
   @Test()
-  public void checkCommentItemName() {
-    assertEquals("post.comments._", root["post"]["comments"].get().name)
+  public void checkCommentItemPath() {
+    assert "post.comments._" == root["post"]["comments"].get().path
   }
   
   @Test()
-  public void checkCommentFieldName() {
-    assertEquals("post.comments._.email", root["post"]["comments"].object["email"].name)
+  public void checkCommentFieldPath() {
+    assert "post.comments._.email" == root["post"]["comments"].object["email"].path
   }
   
   @Test()
   public void checkHitsList() {
-    assertEquals("post.hits", root["post"]["hits"].name)
+    assert "post.hits" == root["post"]["hits"].path
   }
 
   @Test()
-  public void checkHitsField() {
-    assertEquals("post.hits._", root["post"]["hits"].get().name)
+  public void checkHitsListField() {
+    assert "post.hits._" == root["post"]["hits"].get().path
   }
 }
 

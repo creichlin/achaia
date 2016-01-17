@@ -1,14 +1,14 @@
 package ch.kerbtier.achaia.schema.implementation;
 
-import ch.kerbtier.achaia.Types;
+import ch.kerbtier.achaia.Type;
 import ch.kerbtier.achaia.schema.Entity;
 import ch.kerbtier.achaia.schema.ListEntity;
 import ch.kerbtier.achaia.schema.MapEntity;
 
 public class ImpListEntity extends ImpEntity implements ListEntity {
 
-  public ImpListEntity(Entity parent, String name) {
-    super(parent, name);
+  public ImpListEntity(Entity parent, String path) {
+    super(parent, path);
   }
 
   private Entity type;
@@ -33,8 +33,8 @@ public class ImpListEntity extends ImpEntity implements ListEntity {
   }
 
   @Override
-  public Types getType() {
-    return Types.LIST;
+  public Type getType() {
+    return Type.LIST;
   }
 
 }

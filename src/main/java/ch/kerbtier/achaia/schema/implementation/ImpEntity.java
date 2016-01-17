@@ -1,20 +1,20 @@
 package ch.kerbtier.achaia.schema.implementation;
 
-import ch.kerbtier.achaia.Types;
+import ch.kerbtier.achaia.Type;
 import ch.kerbtier.achaia.schema.Entity;
 
 public abstract class ImpEntity implements Entity {
   
   private Entity parent;
-  private String name;
+  private String path;
   
-  public ImpEntity(Entity parent, String name) {
+  public ImpEntity(Entity parent, String path) {
     this.parent = parent;
-    this.name = name;
+    this.path = path;
   }
   
   @Override
-  public boolean is(Types type) {
+  public boolean is(Type type) {
     return getType() == type;
   }
 
@@ -29,7 +29,12 @@ public abstract class ImpEntity implements Entity {
   }
   
   @Override
+  public String getPath() {
+    return path;
+  }
+
+  @Override
   public String getName() {
-    return name;
+    return path.substring(path.lastIndexOf(".") + 1);
   }
 }

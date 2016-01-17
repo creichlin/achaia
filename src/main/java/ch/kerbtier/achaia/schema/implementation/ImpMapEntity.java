@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import ch.kerbtier.achaia.Types;
+import ch.kerbtier.achaia.Type;
 import ch.kerbtier.achaia.schema.Entity;
 import ch.kerbtier.achaia.schema.ListEntity;
 import ch.kerbtier.achaia.schema.MapEntity;
@@ -15,8 +15,8 @@ public class ImpMapEntity extends ImpEntity implements MapEntity {
 
   private Map<String, Entity> map = new HashMap<>();
 
-  public ImpMapEntity(Entity parent, String name) {
-    super(parent, name);
+  public ImpMapEntity(Entity parent, String path) {
+    super(parent, path);
   }
 
   public ImpMapEntity() {
@@ -81,7 +81,7 @@ public class ImpMapEntity extends ImpEntity implements MapEntity {
   }
 
   @Override
-  public Types getType() {
-    return Types.MAP;
+  public Type getType() {
+    return Type.MAP;
   }  
 }

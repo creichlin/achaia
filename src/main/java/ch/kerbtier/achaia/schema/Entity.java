@@ -1,18 +1,20 @@
 package ch.kerbtier.achaia.schema;
 
-import ch.kerbtier.achaia.Types;
+import ch.kerbtier.achaia.Type;
 
 public interface Entity {
   boolean is(Class<?> type);
   
-  boolean is(Types type);
+  boolean is(Type type);
 
   Entity getParent();
 
-  Types getType();
+  Type getType();
+  
+  String getName();
   
   /*
-   * name is full path of model with list slot written as _, comma delimited
+   * path is full path of model with list slot written as _
    */
-  String getName();
+  String getPath();
 }

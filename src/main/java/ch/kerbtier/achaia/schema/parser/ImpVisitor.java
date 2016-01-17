@@ -3,7 +3,7 @@ package ch.kerbtier.achaia.schema.parser;
 import java.util.List;
 import java.util.Stack;
 
-import ch.kerbtier.achaia.Types;
+import ch.kerbtier.achaia.Type;
 import ch.kerbtier.achaia.schema.ListEntity;
 import ch.kerbtier.achaia.schema.InvalidFieldException;
 import ch.kerbtier.achaia.schema.MapEntity;
@@ -76,7 +76,7 @@ public class ImpVisitor extends AchaiaBaseVisitor<ImpEntity> {
     ImpListEntity list = null;
 
     try {
-      if (parents.peek().is(Types.MAP)) {
+      if (parents.peek().is(Type.MAP)) {
         list = (ImpListEntity) ((MapEntity) parents.peek()).getList(names.peek());
       } else {
         throw new AssertionError();
@@ -114,9 +114,9 @@ public class ImpVisitor extends AchaiaBaseVisitor<ImpEntity> {
     ImpMapEntity map = null;
 
     try {
-      if (parents.peek().is(Types.MAP)) {
+      if (parents.peek().is(Type.MAP)) {
         map = (ImpMapEntity) ((MapEntity) parents.peek()).getObject(names.peek());
-      } else if (parents.peek().is(Types.LIST)) {
+      } else if (parents.peek().is(Type.LIST)) {
         map = (ImpMapEntity) ((ListEntity) parents.peek()).getObject();
       }
     } catch (UndefinedFieldException e) {
